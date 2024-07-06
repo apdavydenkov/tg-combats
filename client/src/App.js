@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import WebApp from '@twa-dev/sdk';
+import AuthContext from './contexts/AuthContext';
+import Login from './components/Login';
+import Home from './components/Home';
+import Battle from './components/Battle';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    WebApp.ready();
+    // Add Telegram authentication logic here
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={user ? Home : Login} />
+          <Route path="/battle/:id" component={Battle} />
+          <Route path="/leaderboard" component={Leaderboard} />
+        </Switch>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 
