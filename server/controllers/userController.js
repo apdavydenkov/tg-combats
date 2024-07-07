@@ -18,3 +18,17 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.updateCounter = async (req, res) => {
+  try {
+    const { userId, counter } = req.body;
+    const user = await User.findOneAndUpdate(
+      { id: userId },
+      { $set: { counter: counter } },
+      { new: true }
+    );
+    res.json({ success: true, counter: user.counter });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
