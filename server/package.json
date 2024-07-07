@@ -17,6 +17,7 @@
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.4.5",
+    "node-telegram-bot-api": "^0.66.0",
     "socket.io": "^4.7.5",
     "telegram-bot-api": "^2.0.1"
   },
