@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
-import api from '../services/api';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { createBattle, acceptBattle, makeMove, getLeaderboard, login } from '../services/api';
 import io from 'socket.io-client';
 
 const Battle = () => {
@@ -11,6 +11,7 @@ const Battle = () => {
   const [attack, setAttack] = useState('');
   const [defense, setDefense] = useState([]);
   const [timeLeft, setTimeLeft] = useState(30);
+  const ZONES = ['Голова', 'Тело', 'Руки', 'Ноги', 'Пояс'];
 
   useEffect(() => {
     const socket = io(process.env.REACT_APP_API_URL);

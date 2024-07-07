@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import WebApp from '@twa-dev/sdk';
 import AuthContext from '../contexts/AuthContext';
-import api from '../services/api';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { createBattle, acceptBattle, makeMove, getLeaderboard, login } from '../services/api';
 
 const Login = () => {
   const { setUser } = useContext(AuthContext);

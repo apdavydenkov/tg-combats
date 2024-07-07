@@ -1,15 +1,10 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-  telegramId: { type: String, required: true, unique: true },
-  username: String,
-  firstName: String,
-  lastName: String,
-  battles: {
-    total: { type: Number, default: 0 },
-    won: { type: Number, default: 0 },
-    lost: { type: Number, default: 0 }
-  }
-});
+const userSchema = new mongoose.Schema({
+  id: { type: Number, required: true, unique: true },
+  first_name: { type: String, required: true },
+  last_name: { type: String },
+  username: { type: String },
+}, { timestamps: true });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', userSchema);

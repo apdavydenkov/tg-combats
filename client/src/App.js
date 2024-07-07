@@ -1,30 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import WebApp from '@twa-dev/sdk';
-import AuthContext from './contexts/AuthContext';
-import Login from './components/Login';
-import Home from './components/Home';
-import Battle from './components/Battle';
-import Leaderboard from './components/Leaderboard';
+import axios from 'axios';
+
+const tg = window.Telegram.WebApp;
 
 function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    WebApp.ready();
-    // Add Telegram authentication logic here
+    tg.ready();
+    tg.expand();
+
+    const initData = tg.initData;
+    const initDataUnsafe = tg.initDataUnsafe;
+
+    if (initDataUnsafe.user) {
+      setUser(initDataUnsafe.user);
+      saveUserToDatabase(initDataUnsafe.user);
+    }
   }, []);
 
+  const saveUserToDatabase = async (userData) => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/users`, userData);
+    } catch (error) {
+      console.error('Error saving user data:', error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={user ? Home : Login} />
-          <Route path="/battle/:id" component={Battle} />
-          <Route path="/leaderboard" component={Leaderboard} />
-        </Switch>
-      </Router>
-    </AuthContext.Provider>
+    <div className="App">
+      <h1>Telegram Mini App</h1>
+      {user && (
+        <div>
+          <h2>Welcome, {user.first_name}!</h2>
+          <p>Your Telegram ID: {user.id}</p>
+        </div>
+      )}
+    </div>
   );
 }
 

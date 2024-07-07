@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import api from '../services/api';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { createBattle, acceptBattle, makeMove, getLeaderboard, login } from '../services/api';
 
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState([]);
