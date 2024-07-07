@@ -32,3 +32,20 @@ exports.updateCounter = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+exports.getUserInfo = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findOne({ id: userId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({
+      counter: user.counter,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
