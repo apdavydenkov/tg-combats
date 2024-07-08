@@ -45,7 +45,7 @@ function BasicFunctions() {
   const handleShowConfirm = () => {
     tg.showConfirm('Are you sure you want to proceed?')
       .then((result) => {
-        showResult('Show Confirm', 'tg.showConfirm(message)', `User ${result ? 'confirmed' : 'cancelled'} the action.`);
+        showResult('Show Confirm', 'tg.showConfirm(message)', `Command sent: tg.showConfirm('Are you sure you want to proceed?')\n\nResult received: User ${result ? 'confirmed' : 'cancelled'} the action.`);
       });
   };
 
@@ -76,11 +76,6 @@ function BasicFunctions() {
     showResult('Toggle Back Button', `tg.BackButton.${isBackButtonVisible ? 'hide' : 'show'}()`, `The Back Button is now ${isBackButtonVisible ? 'hidden' : 'visible'}.`);
   };
 
-  const handleExpandApp = () => {
-    tg.expand();
-    showResult('Expand App', 'tg.expand()', 'The app should now be expanded to full screen.');
-  };
-
   useEffect(() => {
     tg.onEvent('backButtonClicked', handleCloseApp);
     return () => {
@@ -89,39 +84,40 @@ function BasicFunctions() {
   }, [tg, handleCloseApp]);
 
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <Link to="/" className="inline-block mb-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
-        &larr; Back to Main Page
-      </Link>
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Basic Telegram Mini App Functions</h2>
-      <div className="space-y-4">
-        <button onClick={handleSendData} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-          Send Data to Bot
-        </button>
-        <button onClick={handleCloseApp} className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-          Close Web App
-        </button>
-        <button onClick={handleShowPopup} className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-          Show Popup
-        </button>
-        <button onClick={handleShowConfirm} className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
-          Show Confirm
-        </button>
-        <button onClick={handleRequestGeolocation} className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
-          Request Geolocation
-        </button>
-        <button onClick={handleToggleBackButton} className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
-          Toggle Back Button
-        </button>
-        <button onClick={handleExpandApp} className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded">
-          Expand App
-        </button>
-        {platformInfo && (
-          <div className="mt-6 p-4 bg-white dark:bg-gray-800 rounded shadow">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Platform Info:</h3>
-            <p className="text-gray-600 dark:text-gray-300">{platformInfo}</p>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-4">
+      <div className="max-w-4xl mx-auto">
+        <Link to="/" className="inline-block mb-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+          &larr; Back to Main Page
+        </Link>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h2 className="text-2xl font-bold mb-6">Basic Telegram Mini App Functions</h2>
+          <div className="space-y-4">
+            <button onClick={handleSendData} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              Send Data to Bot
+            </button>
+            <button onClick={handleCloseApp} className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+              Close Web App
+            </button>
+            <button onClick={handleShowPopup} className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+              Show Popup
+            </button>
+            <button onClick={handleShowConfirm} className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+              Show Confirm
+            </button>
+            <button onClick={handleRequestGeolocation} className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
+              Request Geolocation
+            </button>
+            <button onClick={handleToggleBackButton} className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded">
+              Toggle Back Button
+            </button>
+            {platformInfo && (
+              <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-700 rounded">
+                <h3 className="text-lg font-semibold">Platform Info:</h3>
+                <p>{platformInfo}</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

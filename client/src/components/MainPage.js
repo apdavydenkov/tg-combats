@@ -45,7 +45,7 @@ function MainPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-4">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Info and Clicks Block */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
@@ -93,7 +93,9 @@ function MainPage() {
           <Link to="/basic" className="block w-full text-center bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mb-2">
             Basic Telegram Functions
           </Link>
-          {/* Add more category links here as needed */}
+          <Link to="/mainbutton" className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mb-2">
+            Main Button Functions
+          </Link>
         </div>
       </div>
     </div>
