@@ -1,32 +1,45 @@
-# Getting Started with Create React App
+# Telegram Mini App Example
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a demonstration of a Telegram Mini App using the MERN stack (MongoDB, Express.js, React, Node.js).
 
-## Available Scripts
+## Project Structure
 
-In the project directory, you can run:
+The project is divided into two main parts:
 
-### `npm start`
+1. Client (React frontend)
+2. Server (Node.js backend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup and Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js and npm
+- MongoDB
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Client Setup
 
-### `npm run build`
+1. Navigate to the `client` directory
+2. Run `npm install` to install dependencies
+3. Create a `.env` file and add necessary environment variables
+4. Run `npm start` to start the development server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Server Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Navigate to the `server` directory
+2. Run `npm install` to install dependencies
+3. Create a `.env` file and add necessary environment variables
+4. Run `npm start` to start the server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
 
-### `npm run eject`
+- User authentication via Telegram
+- Click counter with server synchronization
+- Test functions for Telegram Mini App API
+
+## Contributing
+
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
