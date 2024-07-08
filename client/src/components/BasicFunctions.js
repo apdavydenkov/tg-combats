@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useTelegram } from '../hooks/useTelegram';
 
 function BasicFunctions() {
@@ -12,28 +13,28 @@ function BasicFunctions() {
     }
   }, [tg]);
 
-  const handleSendData = () => {
-    const testData = { action: 'test_action', value: 'Hello from Web App!' };
-    tg.sendData(JSON.stringify(testData));
+  const showResult = (title, command, result) => {
     tg.showPopup({
-      title: 'Data Sent',
-      message: `Command used: tg.sendData(${JSON.stringify(testData)})\n\nThis data will be received by the bot. Check the bot's console or logs to see the received data.`,
+      title: title,
+      message: `Command sent: ${command}\n\nResult received: ${result}`,
     });
   };
 
+  const handleSendData = () => {
+    const testData = { action: 'test_action', value: 'Hello from Web App!' };
+    tg.sendData(JSON.stringify(testData));
+    showResult('Send Data to Bot', `tg.sendData(${JSON.stringify(testData)})`, 'Data sent successfully. Check bot logs for received data.');
+  };
+
   const handleCloseApp = useCallback(() => {
-    tg.showPopup({
-      title: 'Closing App',
-      message: 'Command used: tg.close()\n\nThe app will close after you dismiss this popup.',
-      buttons: [{ type: 'close' }]
-    });
+    showResult('Close Web App', 'tg.close()', 'The app will close after you dismiss this popup.');
     tg.close();
   }, [tg]);
 
   const handleShowPopup = () => {
     tg.showPopup({
-      title: 'Test Popup',
-      message: 'Command used: tg.showPopup(params)\n\nThis is how a popup looks like in Telegram Mini Apps.',
+      title: 'Show Popup',
+      message: 'Command sent: tg.showPopup(params)\n\nResult received: This popup is the result of the command.',
       buttons: [
         { type: 'default', text: 'OK' },
         { type: 'cancel' }
@@ -42,12 +43,9 @@ function BasicFunctions() {
   };
 
   const handleShowConfirm = () => {
-    tg.showConfirm('Command used: tg.showConfirm(message)\n\nAre you sure you want to proceed?')
+    tg.showConfirm('Are you sure you want to proceed?')
       .then((result) => {
-        tg.showPopup({
-          title: 'Confirmation Result',
-          message: `You ${result ? 'confirmed' : 'cancelled'} the action.`,
-        });
+        showResult('Show Confirm', 'tg.showConfirm(message)', `User ${result ? 'confirmed' : 'cancelled'} the action.`);
       });
   };
 
@@ -56,23 +54,14 @@ function BasicFunctions() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          tg.showPopup({
-            title: 'Geolocation',
-            message: `Command used: navigator.geolocation.getCurrentPosition()\n\nLatitude: ${latitude}\nLongitude: ${longitude}`,
-          });
+          showResult('Request Geolocation', 'navigator.geolocation.getCurrentPosition()', `Latitude: ${latitude}, Longitude: ${longitude}`);
         },
         (error) => {
-          tg.showPopup({
-            title: 'Geolocation Error',
-            message: `Failed to get location: ${error.message}`,
-          });
+          showResult('Request Geolocation', 'navigator.geolocation.getCurrentPosition()', `Error: ${error.message}`);
         }
       );
     } else {
-      tg.showPopup({
-        title: 'Geolocation Not Supported',
-        message: 'Geolocation is not supported by this browser or device.',
-      });
+      showResult('Request Geolocation', 'navigator.geolocation.getCurrentPosition()', 'Geolocation is not supported by this browser or device.');
     }
   };
 
@@ -84,18 +73,12 @@ function BasicFunctions() {
       tg.BackButton.show();
       setIsBackButtonVisible(true);
     }
-    tg.showPopup({
-      title: 'Back Button Toggled',
-      message: `Command used: tg.BackButton.${isBackButtonVisible ? 'hide' : 'show'}()\n\nThe Back Button is now ${isBackButtonVisible ? 'hidden' : 'visible'}.`,
-    });
+    showResult('Toggle Back Button', `tg.BackButton.${isBackButtonVisible ? 'hide' : 'show'}()`, `The Back Button is now ${isBackButtonVisible ? 'hidden' : 'visible'}.`);
   };
 
   const handleExpandApp = () => {
     tg.expand();
-    tg.showPopup({
-      title: 'App Expanded',
-      message: 'Command used: tg.expand()\n\nThe app should now be expanded to full screen.',
-    });
+    showResult('Expand App', 'tg.expand()', 'The app should now be expanded to full screen.');
   };
 
   useEffect(() => {
@@ -106,7 +89,10 @@ function BasicFunctions() {
   }, [tg, handleCloseApp]);
 
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 min-h-screen">
+    <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
+      <Link to="/" className="inline-block mb-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+        &larr; Back to Main Page
+      </Link>
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Basic Telegram Mini App Functions</h2>
       <div className="space-y-4">
         <button onClick={handleSendData} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
@@ -131,7 +117,7 @@ function BasicFunctions() {
           Expand App
         </button>
         {platformInfo && (
-          <div className="mt-6 p-4 bg-white dark:bg-gray-700 rounded shadow">
+          <div className="mt-6 p-4 bg-white dark:bg-gray-800 rounded shadow">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Platform Info:</h3>
             <p className="text-gray-600 dark:text-gray-300">{platformInfo}</p>
           </div>
