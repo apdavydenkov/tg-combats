@@ -10,9 +10,9 @@ function App() {
       <div className="container mx-auto p-4">
         <nav className="mb-4">
           <ul className="flex space-x-4">
-            <li><Link to="/" className="text-blue-500 hover:text-blue-700">Main Page</Link></li>
-            <li><Link to="/test" className="text-blue-500 hover:text-blue-700">Test Functions</Link></li>
-            <li><Link to="/basic" className="text-blue-500 hover:text-blue-700">Basic Functions</Link></li>
+            <li><Link to="/" className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">Main Page</Link></li>
+            <li><Link to="/test" className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">Test Functions</Link></li>
+            <li><Link to="/basic" className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">Basic Functions</Link></li>
           </ul>
         </nav>
         <Routes>
